@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import HowToPage from "./components/HowToPage";
 import DevPage from "./components/DevPage";
 import { GameState } from "./types";
+import Footer from "./components/Footer";
 
 const INITIAL_STATE: GameState = {
   currentClue: 1,
@@ -17,6 +18,7 @@ const INITIAL_STATE: GameState = {
 function App() {
   const [gameState, setGameState] = useState<GameState>(INITIAL_STATE);
   const [secretTaps, setSecretTaps] = useState(0);
+  const [footerTaps, setFooterTaps] = useState(0);
 
   useEffect(() => {
     const savedState = localStorage.getItem("treasureHuntState");
@@ -46,6 +48,23 @@ function App() {
     return () => clearTimeout(timer);
   }, [secretTaps]);
 
+  // Footer secret tap counter
+  useEffect(() => {
+    if (footerTaps >= 3) {
+      setGameState((prev) => ({ ...prev, currentPage: "dev" }));
+      setFooterTaps(0);
+    }
+
+    // Reset counter after delay
+    const timer = setTimeout(() => {
+      if (footerTaps > 0) {
+        setFooterTaps(0);
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [footerTaps]);
+
   const handleCorrectCode = (clueId: number) => {
     setGameState((prev) => ({
       ...prev,
@@ -69,14 +88,18 @@ function App() {
     setSecretTaps((prev) => prev + 1);
   };
 
+  const handleFooterTap = () => {
+    setFooterTaps((prev) => prev + 1);
+  };
+
   const handleDevPageBack = () => {
     setGameState((prev) => ({ ...prev, currentPage: "game" }));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-red-50 to-pink-100 bg-fixed">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-red-50 to-pink-100 bg-fixed flex flex-col">
       <div className="fixed inset-0 z-0 bg-pattern opacity-10"></div>
-      <div className="relative z-10">
+      <div className="relative z-10 flex-1 flex flex-col">
         {gameState.currentPage !== "dev" && (
           <Header
             activePage={gameState.currentPage as "game" | "howto"}
@@ -84,7 +107,7 @@ function App() {
             onSecretTap={handleSecretTap}
           />
         )}
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto px-4 py-8 flex-1">
           <AnimatePresence mode="wait">
             {gameState.currentPage === "game" ? (
               <motion.div
@@ -138,6 +161,10 @@ function App() {
             )}
           </AnimatePresence>
         </main>
+
+        {gameState.currentPage !== "dev" && (
+          <Footer onSecretTap={handleFooterTap} />
+        )}
       </div>
     </div>
   );
