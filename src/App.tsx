@@ -5,6 +5,7 @@ import ClueCard from "./components/ClueCard";
 import Header from "./components/Header";
 import HowToPage from "./components/HowToPage";
 import DevPage from "./components/DevPage";
+import ProgressTracker from "./components/ProgressTracker";
 import { GameState } from "./types";
 import Footer from "./components/Footer";
 
@@ -112,27 +113,31 @@ function App() {
             {gameState.currentPage === "game" ? (
               <motion.div
                 key="game"
-                className="max-w-2xl mx-auto space-y-8"
+                className="max-w-2xl mx-auto"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.3 }}
               >
-                {clues.map((clue) => (
-                  <motion.div
-                    key={clue.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <ClueCard
-                      clue={clue}
-                      isUnlocked={gameState.unlockedClues.includes(clue.id)}
-                      onCorrectCode={handleCorrectCode}
-                    />
-                  </motion.div>
-                ))}
+                <ProgressTracker unlockedClues={gameState.unlockedClues} />
+
+                <div className="space-y-8">
+                  {clues.map((clue) => (
+                    <motion.div
+                      key={clue.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <ClueCard
+                        clue={clue}
+                        isUnlocked={gameState.unlockedClues.includes(clue.id)}
+                        onCorrectCode={handleCorrectCode}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             ) : gameState.currentPage === "howto" ? (
               <motion.div
