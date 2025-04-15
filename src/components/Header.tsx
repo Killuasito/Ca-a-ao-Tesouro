@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 interface HeaderProps {
   activePage: "game" | "howto";
   onNavigate: (page: "game" | "howto") => void;
+  onSecretTap: () => void;
 }
 
-const Header = ({ activePage, onNavigate }: HeaderProps) => {
+const Header = ({ activePage, onNavigate, onSecretTap }: HeaderProps) => {
   return (
     <header className="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-10 border-b-4 border-pink-200">
       <div className="container mx-auto px-4 py-4">
@@ -27,6 +28,7 @@ const Header = ({ activePage, onNavigate }: HeaderProps) => {
                 repeat: Infinity,
                 repeatDelay: 3,
               }}
+              onClick={onSecretTap}
             >
               <FaHeart className="text-red-500" />
             </motion.div>
