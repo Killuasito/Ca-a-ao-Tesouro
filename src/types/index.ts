@@ -9,5 +9,6 @@ export interface ClueType {
 export interface GameState {
   currentClue: number;
   unlockedClues: number[];
-  currentPage: "game" | "howto";
+  currentPage: "game" | "howto" | "dev";
+  devAccess: boolean;
 }

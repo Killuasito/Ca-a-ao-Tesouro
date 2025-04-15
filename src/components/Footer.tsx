@@ -24,6 +24,15 @@ const Footer = ({ onSecretTap }: FooterProps) => {
         </motion.div>
         <span>para você</span>
       </motion.div>
+
+      <motion.div
+        className="mt-1 text-xs text-pink-300"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7 }}
+      >
+        © 2025 Caça ao Tesouro do Amor
+      </motion.div>
     </footer>
   );
 };
