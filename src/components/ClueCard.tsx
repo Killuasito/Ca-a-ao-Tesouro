@@ -171,7 +171,7 @@ const ClueCard = ({ clue, isUnlocked, onCorrectCode }: ClueCardProps) => {
         {!clue.isLast && (
           <form onSubmit={handleSubmit} className="space-y-4">
             <motion.div
-              className="flex gap-2"
+              className="flex flex-col sm:flex-row gap-2"
               key={error ? "error" : "normal"}
               animate={error ? { x: [0, -10, 10, -10, 10, 0] } : {}}
               transition={{ duration: 0.4 }}
@@ -190,12 +190,12 @@ const ClueCard = ({ clue, isUnlocked, onCorrectCode }: ClueCardProps) => {
               />
               <motion.button
                 type="submit"
-                className="bg-gradient-to-r from-pink-500 to-red-400 hover:from-pink-600 hover:to-red-500 text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors shadow-sm font-medium"
+                className="bg-gradient-to-r from-pink-500 to-red-400 hover:from-pink-600 hover:to-red-500 text-white px-4 py-3 rounded-md flex items-center justify-center gap-2 transition-colors shadow-sm font-medium sm:w-auto w-full"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
                 <FaKey />
-                Desbloquear
+                <span>Desbloquear</span>
               </motion.button>
             </motion.div>
 
