@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaLock, FaUnlock, FaKey, FaClipboard, FaCheck } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { FaKey, FaClipboard, FaCheck } from "react-icons/fa";
 import { clues } from "../data/clues";
 
 interface DevPageProps {
